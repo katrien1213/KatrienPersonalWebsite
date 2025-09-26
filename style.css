@@ -1,0 +1,9 @@
+*{
+    color:blue;/*a comment*/
+    margin:10px;
+    font: 14px Tahoma;
+    background-color: beige;
+}
+button.subpage {
+    color:black;
+}
