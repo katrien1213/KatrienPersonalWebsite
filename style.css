@@ -81,15 +81,15 @@ border: solid 1px white;
     background:lightgray;
     border:solid 1px black;
     grid-column-start:1;
-    grid-column-end:2;
+    grid-column-end:3;
     grid-row-start:1;
     grid-row-end:2;
 }
 .grid-item2{
     background:lightgray;
     border:solid 1px black;
-    grid-column-start:2;
-    grid-column-end:3;
+    grid-column-start:3;
+    grid-column-end:4;
     grid-row-start:1;
     grid-row-end:2;
 }
