@@ -7,7 +7,7 @@ var button = document.querySelector("#CV");
 // attach an event when user clicks it 
 button.addEventListener("click", myfunction);
 
- 
+
 function myfunction() {
     
     alert("let me tell you more about me");
