@@ -1,10 +1,98 @@
 *{
-    color:blue;/*a comment*/
+    color:rgb(255, 255, 255);/*a comment*/
     margin:10px;
     font: 14px Tahoma;
-    background-color: beige;
+    background-color: rgb(101, 101, 101);
     
 }
 button.subpage {
-    color:black;
+    color:rgb(175, 169, 169);
+}
+
+/* Class selector for all education section */
+.education {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 20px;
+}
+
+/* Each school entry */
+.school {
+  margin-bottom: 25px;
+  padding-left: 15px;
+  border-left: 3px solid #333;
+}
+
+/* University names */
+.school .university {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+/* Period of study */
+.school .period {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+/* Degree/program info */
+.school .degree, .school .program {
+  margin-bottom: 5px;
+}
+
+/* GPA info */
+.school .gpa {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Core modules */
+.school .modules {
+  font-size: 14px;
+  color: #34495e;
+}
+.box{
+    display:flex;
+    
+}
+
+.box div{
+border: solid 1px white;
+}
+
+
+.grid-container{
+    display:grid;
+    grid-template-rows:100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    grid-gap:1px;
+}
+
+.grid-item1{
+    background:lightgray;
+    border:solid 1px black;
+    grid-column-start:1;
+    grid-column-end:2;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+.grid-item2{
+    background:lightgray;
+    border:solid 1px black;
+    grid-column-start:2;
+    grid-column-end:3;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+
+.grid-item3{
+    background:lightgray;
+    border:solid 1px black;
+    grid-column-start:1;
+    grid-column-end:3;
+    grid-row-start:2;
+    grid-row-end:3;
 }
