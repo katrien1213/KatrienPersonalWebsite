@@ -9,6 +9,12 @@ button.subpage {
     color:rgb(175, 169, 169);
 }
 
+h1{color:aliceblue}
+button{
+    border:2px solid #AAA;
+    background-color: #555;
+}
+
 /* Class selector for all education section */
 .education {
   font-family: Arial, sans-serif;
