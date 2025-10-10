@@ -1,18 +1,18 @@
 *{
-    color:rgb(255, 255, 255);/*a comment*/
+    color:rgb(60, 60, 60);/*a comment*/
     margin:10px;
     font: 14px Tahoma;
-    background-color: rgb(101, 101, 101);
+    
     
 }
 button.subpage {
-    color:rgb(175, 169, 169);
+    color:rgb(59, 58, 58);
 }
 
-h1{color:aliceblue}
+h1{color:rgb(43, 43, 43)}
 button{
-    border:2px solid #AAA;
-    background-color: #555;
+    border:0.2px solid #292929;
+    background-color: #bcb7b721;
 }
 
 /* Class selector for all education section */
@@ -101,4 +101,63 @@ border: solid 1px white;
     grid-column-end:3;
     grid-row-start:2;
     grid-row-end:3;
+}
+
+header, section{
+    margin:2em auto;
+    width:min(75em,100%);
+    background-color: antiquewhite;
+    padding:min(2em,15%);
+    border-radius:1em;
+}
+nav{
+    margin: 1em auto 1em auto;
+    width:min(1000px,100%);
+    font-size:1.5em;
+}
+nav ul {
+    display:flex;
+    align-items:center;
+    list-style-type:none;
+    gap:1em;
+    font-family: sans-serif;
+}
+
+nav p:first-child{
+    margin-right:auto;
+    font-size:2em;
+    font-family:'Courier New', Courier, monospace;
+}
+.intro_button{
+    display:inline-block;
+    text-decoration:none;
+    color:white;
+    background-color:rgb(146, 35, 166);
+    padding:.75em 1em;
+    margin-top:0em;
+    border-radius:.5em;
+    font-weight:600;
+}
+button.subpage{
+    border-radius: .3em;
+    font-size: 1.2em;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.flex-container{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:3em;
+}
+
+h1{
+    font: size 0.8em;
+    font-family:sans-serif;
+}
+
+
+.text-container{
+    flex:0 1 40em;
 }

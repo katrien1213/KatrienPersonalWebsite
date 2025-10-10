@@ -2,23 +2,34 @@
 
 <head>
     <link href="style.css" rel="stylesheet" />
-</head>
-
-<body>
-    <div id="main">
-        <!--this is a comment-->
-        This is my personal website.
-        <button>About me</button>
-        <button class="subpage">Projects Portfolio</button>
-        <button id="cv" class= "subpage" >CV </button>
-        <p>My self-introduction is one sentence.</p>
-        <img src="me.JPG" width="300" height="200" />
-    </div>
-
-    <h1>This is a title from html</h1>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     
 
-</body>
+    
+</head>
+
+<header>
+    <nav id="main">
+        <ul>
+         <p>Katrien Han </p>
+         <button class="subpage">About Me</button>
+        <button class="subpage">Projects Portfolio</button>
+        <button id="cv" class= "subpage" >CV </button>
+        </ul>
+    </nav>
+
+    <div class="flex-container">
+         <img src="me.JPG" width="150" height="100" />
+         <div class= "text-container">
+           <h1>Welcome to my website!</h1>
+           <p> I am an undergraduate year4 student at The School of Creative Media, CityU</p>
+           <a class="intro_button" href="">Follow me on Instagram</a>
+           </div>
+    </div>
+</header>
+
+
+<body>
 <div class="box">
     <div>One</div>
     <div>Two</div>
@@ -65,6 +76,18 @@
         <p class="modules">Core Modules: Contemporary South Korean Cinema, Film Editing, Narrative Storytelling</p>
     </div>
 </div> 
+<script src="code.js"></script>
+<script src="src/scatterplot.js"></script>
 
+<section id="vis-scatterplot">
+    <h2> This is a scatterplot.</h2>
+</section>
+
+<section id="vis-bar"></section>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="bar.js"></script>
+
+
+</body>
 
 </html>
