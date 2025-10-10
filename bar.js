@@ -71,7 +71,7 @@ svgBar.append("text")
   .style("font-size", "14px")
   .style("font-weight", "bold")
   .style("fill", "#333");
-
+  
 // --- Y-axis annotation (Software) ---
 svgBar.append("text")
   .attr("text-anchor", "middle")
