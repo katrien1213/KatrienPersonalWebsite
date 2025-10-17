@@ -5,6 +5,9 @@
     
     
 }
+html{
+    scroll-behavior: smooth;
+}
 button.subpage {
     color:rgb(59, 58, 58);
 }
@@ -106,7 +109,7 @@ border: solid 1px white;
 header, section{
     margin:2em auto;
     width:min(75em,100%);
-    background-color: antiquewhite;
+    background-color: rgba(250, 235, 215, 0.872);
     padding:min(2em,15%);
     border-radius:1em;
 }
