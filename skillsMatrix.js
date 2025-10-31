@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const width = 1000;
-  const height = 1000;
-  const margin = { top: 200, right: 50, bottom: 50, left: 200 };
+
+  const width = 800;
+  const height = 800;
+  const margin = { top: 180, right: 50, bottom: 50, left: 180 };
   const cellSize = 25;
 
   const svg = d3.select("#skills-matrix")
@@ -9,54 +10,46 @@ document.addEventListener("DOMContentLoaded", function() {
     .attr("width", width)
     .attr("height", height);
 
-  // --- 数据 ---
-  const categories = [
-    { name: "Software", nodes: ["Unity","UE5","Blender","SubstancePainter","Nomad","P5js","Processing","Spyder","VSCode","AE","XD","Photoshop","Procreate","Figma"], color:"#6baed6" },
-    { name: "Programming", nodes: ["C#","C++","HTML","Java","Python"], color:"#9ecae1" },
-    { name: "ML Frameworks", nodes: ["Scikit-learn","PyTorch","TensorFlow"], color:"#74c476" },
-    { name: "Languages", nodes: ["ENG7","CN","DE","CANT"], color:"#fdae6b" },
-    { name: "Sport", nodes: ["Tennis","Golf"], color:"#e377c2" }
+  // --- 分组信息 & 缩短标签 ---
+  const groups = [
+    { name: "Software", nodes: ["Unity","UE5","Blender","SubstancePainter","Nomad","P5js","Processing","Spyder","VSCode","AE","XD","PS","Procreate","Figma"], color: "#6baed6" },
+    { name: "Programming", nodes: ["C#","C++","HTML","Java","Python"], color: "#9ecae1" },
+    { name: "ML", nodes: ["Scikit-learn","PyTorch","TensorFlow"], color: "#74c476" },
+    { name: "Languages", nodes: ["ENG7","CN","DE","CANT"], color: "#fdae6b" },
+    { name: "Sport", nodes: ["Tennis","Golf"], color: "#e377c2" }
   ];
 
-  // --- 展平节点列表并记录索引 ---
-  let nodes = [];
-  let nodeCategory = {};
-  categories.forEach(cat => {
-    cat.nodes.forEach(n => {
+  // --- 构建节点数组（含分类信息） ---
+  let nodes = ["Skills"];
+  let nodeGroups = ["root"];
+  groups.forEach(g => {
+    nodes.push(g.name);
+    nodeGroups.push("category");
+    g.nodes.forEach(n => {
       nodes.push(n);
-      nodeCategory[n] = cat.name;
+      nodeGroups.push(g.name);
     });
   });
-
-  const nodeIndex = {};
-  nodes.forEach((d,i)=>nodeIndex[d]=i);
 
   // --- 构建邻接矩阵 ---
-  const matrix = Array.from({length:nodes.length},()=>Array(nodes.length).fill(0));
+  const nodeIndex = {};
+  nodes.forEach((d,i)=> nodeIndex[d]=i);
 
-  // root节点和类别节点连接
-  categories.forEach(cat => {
-    cat.nodes.forEach(n => {
-      const i = nodeIndex[n];
-      const j = nodeIndex[cat.name] = -1; // 类别节点不放在矩阵里
-      matrix[i][i] = 0; // 自己对自己可设为0
+  const matrix = Array.from({length: nodes.length}, () => Array(nodes.length).fill(0));
+
+  // Skills 连接各类别
+  groups.forEach(g => {
+    matrix[nodeIndex["Skills"]][nodeIndex[g.name]] = 1;
+    matrix[nodeIndex[g.name]][nodeIndex["Skills"]] = 1;
+    // 类别连接子节点
+    g.nodes.forEach(n => {
+      matrix[nodeIndex[g.name]][nodeIndex[n]] = 1;
+      matrix[nodeIndex[n]][nodeIndex[g.name]] = 1;
     });
   });
 
-  // 类别间或软件等子节点之间的可视化边：可用1填充
-  categories.forEach(cat=>{
-    const catNodes = cat.nodes;
-    for(let i=0;i<catNodes.length;i++){
-      for(let j=i+1;j<catNodes.length;j++){
-        matrix[nodeIndex[catNodes[i]]][nodeIndex[catNodes[j]]] = 1;
-        matrix[nodeIndex[catNodes[j]]][nodeIndex[catNodes[i]]] = 1;
-      }
-    }
-  });
-
-  // --- 绘制矩阵 ---
-  const g = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+  // --- 绘制矩阵格子 ---
+  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
   const rows = g.selectAll(".row")
     .data(matrix)
@@ -69,11 +62,10 @@ document.addEventListener("DOMContentLoaded", function() {
     .data(d=>d)
     .enter()
     .append("rect")
-    .attr("class","cell")
     .attr("x",(d,i)=>i*cellSize)
     .attr("width",cellSize-1)
     .attr("height",cellSize-1)
-    .attr("fill",(d,i,j)=> d===1 ? categories.find(c=>c.nodes.includes(nodes[i])).color : "#f0f0f0")
+    .attr("fill",d => d===1 ? "#4682B4" : "#f0f0f0")
     .attr("stroke","#ccc");
 
   // --- 横向标签 ---
@@ -106,4 +98,17 @@ document.addEventListener("DOMContentLoaded", function() {
     .attr("font-size","10px")
     .text(d=>d);
 
+  // --- 给类别节点上色 ---
+  nodes.forEach((n,i)=>{
+    let color = "#4682B4"; // 默认蓝色
+    groups.forEach(g=>{
+      if(n === g.name) color = g.color;
+      if(g.nodes.includes(n)) color = g.color;
+    });
+    g.selectAll(".row").filter((d,ri)=>ri===i)
+      .selectAll("rect")
+      .attr("fill",(d,j)=> d===1 ? color : "#f0f0f0");
+  });
+
 });
+
