@@ -9,6 +9,7 @@
 </head>
 
 <header>
+    
     <nav id="main">
         <ul>
          <p>Katrien Han </p>
@@ -75,8 +76,8 @@
         <p class="program">Summer School Program Seoul, Korea</p>
         <p class="modules">Core Modules: Contemporary South Korean Cinema, Film Editing, Narrative Storytelling</p>
     </div>
-</div> 
 
+</div> 
 
 <section id="vis-bar"></section>
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -107,13 +108,25 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="dotdensity.js"></script>
 
-  <svg id="visitor-map"></svg>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="visitor-map.js"></script>
 
 
+<script>
+    // Call the function to draw the chart
+    createSF36Viz('#sf36-chart'); 
+</script>
 
 
+<section id="keto-chart"></section>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="ketoViz.js"></script>
+
+
+<section id="map"></section>
+<script src="interactiveMap.js"></script> 
+<script>
+    // Call the function with your container ID
+    createInteractiveMap("#map"); 
+</script>
 
 
 </body>

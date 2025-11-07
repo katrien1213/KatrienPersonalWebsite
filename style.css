@@ -1,166 +1,222 @@
-*{
-    color:rgb(60, 60, 60);/*a comment*/
-    margin:10px;
-    font: 14px Tahoma;
-    
-    
-}
-html{
-    scroll-behavior: smooth;
-}
-button.subpage {
-    color:rgb(59, 58, 58);
+/* Import elegant, modern font (like Bartosz Jarocki CV) */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap');
+
+/* ---------- GLOBAL RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter Tight", "Inter", "Helvetica Neue", Arial, sans-serif;
+  color: #1e1e1e;
 }
 
-h1{color:rgb(43, 43, 43)}
-button{
-    border:0.2px solid #292929;
-    background-color: #bcb7b721;
+html {
+  scroll-behavior: smooth;
+  background-color: #f7f8fa;
 }
 
-/* Class selector for all education section */
-.education {
-  font-family: Arial, sans-serif;
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
   line-height: 1.6;
-  margin: 20px;
+  background-color: #f7f8fa;
 }
 
-/* Each school entry */
+/* ---------- NAVIGATION ---------- */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.2em 3em;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(220, 220, 220, 0.7);
+  z-index: 100;
+}
+
+nav p {
+  font-weight: 600;
+  font-size: 1.3em;
+  letter-spacing: 0.02em;
+  color: #222;
+  margin: 0;
+}
+
+nav a, nav button {
+  background: none;
+  border: none;
+  font-weight: 500;
+  font-size: 0.95em;
+  color: #333;
+  text-decoration: none;
+  margin-left: 2em;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+nav a:hover, nav button:hover {
+  color: #6b3dfc;
+}
+
+/* ---------- HEADER INTRO ---------- */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2em;
+  padding: 9em 3em 4em;
+  background: linear-gradient(145deg, #fdfdfd 0%, #f5f6f8 100%);
+}
+
+header img {
+  width: 160px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+header .text-container {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 1.5em 2em;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+}
+
+header h1 {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.3em;
+}
+
+header p {
+  font-size: 0.95em;
+  color: #444;
+  margin-bottom: 1em;
+}
+
+header a.intro_button {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #6b3dfc;
+  color: white;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+header a.intro_button:hover {
+  background-color: #5330d8;
+}
+
+/* ---------- GRID + BOX ELEMENTS ---------- */
+.box {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2em 3em;
+}
+
+.box div {
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  margin: 0 0.5em;
+  text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  margin: 2em 3em;
+}
+
+.grid-container div {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2em;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- EDUCATION SECTION ---------- */
+.education {
+  background: rgba(255, 255, 255, 0.95);
+  margin: 3em 3em;
+  padding: 2em 2.5em;
+  border-radius: 10px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+}
+
 .school {
-  margin-bottom: 25px;
-  padding-left: 15px;
-  border-left: 3px solid #333;
+  border-left: 3px solid #6b3dfc;
+  padding-left: 1.2em;
+  margin-bottom: 1.8em;
 }
 
-/* University names */
 .school .university {
-  font-size: 18px;
-  font-weight: bold;
-  color: #2c3e50;
-  margin-bottom: 5px;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 0.2em;
 }
 
-/* Period of study */
 .school .period {
-  font-style: italic;
-  color: #7f8c8d;
-  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 0.4em;
 }
 
-/* Degree/program info */
 .school .degree, .school .program {
-  margin-bottom: 5px;
+  font-size: 0.95em;
+  color: #444;
+  margin-bottom: 0.3em;
 }
 
-/* GPA info */
-.school .gpa {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-/* Core modules */
 .school .modules {
-  font-size: 14px;
-  color: #34495e;
-}
-.box{
-    display:flex;
-    
+  font-size: 0.9em;
+  color: #555;
 }
 
-.box div{
-border: solid 1px white;
+/* ---------- SECTIONS FOR D3 VISUALS ---------- */
+section {
+  margin: 3em auto;
+  padding: 1em;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  width: calc(100% - 6em);
 }
 
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media (max-width: 900px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 7em 2em 3em;
+  }
 
-.grid-container{
-    display:grid;
-    grid-template-rows:100px 100px;
-    grid-template-columns: 100px 100px 100px;
-    grid-gap:1px;
-}
+  nav {
+    padding: 1em 2em;
+  }
 
-.grid-item1{
-    background:lightgray;
-    border:solid 1px black;
-    grid-column-start:1;
-    grid-column-end:3;
-    grid-row-start:1;
-    grid-row-end:2;
-}
-.grid-item2{
-    background:lightgray;
-    border:solid 1px black;
-    grid-column-start:3;
-    grid-column-end:4;
-    grid-row-start:1;
-    grid-row-end:2;
-}
+  .box, .grid-container, .education {
+    margin: 1.5em 1em;
+  }
 
-.grid-item3{
-    background:lightgray;
-    border:solid 1px black;
-    grid-column-start:1;
-    grid-column-end:3;
-    grid-row-start:2;
-    grid-row-end:3;
-}
-
-header, section{
-    margin:2em auto;
-    width:min(75em,100%);
-    background-color: rgba(250, 235, 215, 0.872);
-    padding:min(2em,15%);
-    border-radius:1em;
-}
-nav{
-    margin: 1em auto 1em auto;
-    width:min(1000px,100%);
-    font-size:1.5em;
-}
-nav ul {
-    display:flex;
-    align-items:center;
-    list-style-type:none;
-    gap:1em;
-    font-family: sans-serif;
-}
-
-nav p:first-child{
-    margin-right:auto;
-    font-size:2em;
-    font-family:'Courier New', Courier, monospace;
-}
-.intro_button{
-    display:inline-block;
-    text-decoration:none;
-    color:white;
-    background-color:rgb(146, 35, 166);
-    padding:.75em 1em;
-    margin-top:0em;
-    border-radius:.5em;
-    font-weight:600;
-}
-button.subpage{
-    border-radius: .3em;
-    font-size: 1.2em;
-    font-family:'Courier New', Courier, monospace;
-}
-
-.flex-container{
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:3em;
-}
-
-h1{
-    font: size 0.8em;
-    font-family:sans-serif;
-}
-
-
-.text-container{
-    flex:0 1 40em;
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
 }
