@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
     { id: "Generative Calligraphy", year: "2023.08", tech: "P5.js, ML Object Detection", desc: "Interactive calligraphy interpreting gestures via ML classification.", image: "calligraphy.JPG" },
     { id: "Feminine Animation", year: "2023.10", tech: "Unity, Nomad, AE", desc: "Experimental animation blending 2D hand drawings and 3D abstraction.", image: "fem.JPG" },
     { id: "Integrative Sculpture", year: "2024.01", tech: "Blender, Arduino", desc: "Interactive sculpture using sensors and air pumps to simulate life.", image: "sculpture.JPG" },
-    { id: "Buddha Restoration", year: "2024.06", tech: "Python, PyTorch, KNN", desc: "ML-based restoration of Buddhist sculptures using reconstruction algos.", image: "Buddha.JPG" },
+    { id: "Buddha Restoration", year: "2024.06", tech: "Python, PyTorch, KNN", desc: "ML-based restoration of Buddhist sculptures using reconstruction algos.", image: "buddha_img.jpg" },
      { id: "Eye Tracking Reader", year: "2025.10", tech: "Python, Tobii SDK, NLP", desc: "A hands-free reading interface controlled by gaze fixation and blinking.", image: "project1_image.jpg" },
-     { id: "VR Motion Trace", year: "2025.11", tech: "Unity, Oculus SDK, C#", desc: "Visualizing dance movements in 3D space using VR controller tracking.", image: "VRmotion.jpg" },
+     { id: "VR Motion Trace", year: "2025.11", tech: "Unity, Oculus SDK, C#", desc: "Visualizing dance movements in 3D space using VR controller tracking.", image: "VRtrace_img.png" },
   ];
 
   // Generate sequential links
