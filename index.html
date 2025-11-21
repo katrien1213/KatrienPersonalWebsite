@@ -1,134 +1,399 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katrien Han - Portfolio</title>
+    
     <link href="style.css" rel="stylesheet" />
+
     <script src="https://d3js.org/d3.v7.min.js"></script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    
+    <style>
+        /* --- 1. CRITICAL: ENABLE SMOOTH SCROLLING --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- YOUR EXISTING STYLES --- */
+        .cv-item { display: flex; flex-direction: column; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; cursor: default; }
+        .cv-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .cv-row { display: flex; justify-content: space-between; align-items: baseline; width: 100%; }
+        .cv-title { font-size: 0.95rem; font-weight: 600; color: #111827; margin-bottom: 2px; transition: color 0.3s ease; }
+        .cv-location, .cv-date { font-size: 0.85rem; color: #6b7280; text-align: right; font-variant-numeric: tabular-nums; }
+        .cv-role { font-size: 0.9rem; color: #111827; font-weight: 500; margin-bottom: 2px; transition: color 0.3s ease; }
+        .cv-details { font-size: 0.8rem; color: #6b7280; line-height: 1.4; margin-top: 2px; max-width: 600px; }
+        #education .cv-item:hover .cv-title, #education .cv-item:hover .cv-role { color: #9333ea; }
+        #work .cv-item:hover .cv-title, #work .cv-item:hover .cv-role { color: #0d9488; }
+        section { margin-bottom: 50px; }
+        h2 { margin-bottom: 15px; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em;}
+        #timeline-section { position: relative; padding-bottom: 40px; }
+        #show-academic-tree-btn { position: absolute; bottom: 0; right: 0; padding: 6px 14px; background-color: white; color: #7d35e3f5; border: 1px solid #7d35e3ea; border-radius: 20px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; z-index: 10; }
+        #show-academic-tree-btn:hover { background-color: #30a47f00; color: rgb(165, 41, 232); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+        #show-academic-tree-btn span { font-size: 1.1em; line-height: 0; margin-bottom: 2px;}
+        #academic-tree-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        #academic-tree-overlay.active { opacity: 1; visibility: visible; }
+        #academic-tree-overlay .viz-container { width: 90%; max-width: 1000px; height: 85%; background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 16px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1); position: relative; overflow-y: auto; display: block; padding: 20px; }
+        .overlay-close-btn { position: absolute; top: 20px; right: 25px; background: rgba(0, 0, 0, 0.05); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 1.5rem; line-height: 1; color: #333; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; z-index: 1001; }
+        .overlay-close-btn:hover { background: rgba(0, 0, 0, 0.1); transform: scale(1.1); }
+        .overlay-title { position: absolute; top: 25px; left: 30px; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: #6b7280; letter-spacing: 0.05em; }
+
+        /* --- LAYOUT GRID --- */
+        body { max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow-x: hidden; }
+        .layout-wrapper { display: grid; grid-template-columns: 1fr 900px 1fr; width: 100%; min-height: 100vh; }
+        
+        /* Main Center */
+        #main-content { padding: 40px 20px; background: #ffffff; position: relative; width: 100%; max-width: 900px; margin: 0 auto; z-index: 2; }
+
+        /* Side Columns */
+        .side-column { background-color: #fafafa; padding: 60px 20px; display: flex; flex-direction: column; font-family: 'Inter', sans-serif; }
+        .col-header { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: #111827; margin-bottom: 30px; border-bottom: 2px solid #111827; padding-bottom: 10px; width: fit-content; }
+
+        /* LEFT COLUMN & MAP STYLES */
+        .left-col { border-right: 1px solid #e5e7eb; align-items: flex-end; text-align: right; }
+        
+        /* THE MAP CONTAINER */
+        #map-container {
+            width: 100%;
+            height: 280px; 
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background-color: #f0f9ff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #e0f2fe;
+            position: relative;
+        }
+
+        .footprint-item { margin-bottom: 25px; opacity: 0.8; transition: opacity 0.3s; }
+        .footprint-item:hover { opacity: 1; }
+        .fp-date { display: block; font-size: 0.75rem; font-weight: 600; color: #111; margin-bottom: 2px; }
+        .fp-loc { display: block; font-size: 0.85rem; color: #4b5563; }
+        .fp-coord { display: block; font-size: 0.65rem; font-family: 'Courier New', monospace; color: #9ca3af; margin-top: 2px; }
+        .vertical-line { height: 60px; width: 1px; background: #e5e7eb; margin-right: 10px; margin-top: 20px; display: inline-block;}
+
+        /* RIGHT COLUMN */
+        .right-col { border-left: 1px solid #e5e7eb; align-items: flex-start; text-align: left; }
+        .news-item { margin-bottom: 35px; border-left: 2px solid #e5e7eb; padding-left: 15px; transition: border-color 0.3s; }
+        .news-item:hover { border-left-color: #8b09db; }
+        .news-badge { display: inline-block; font-size: 0.65rem; background: #f3f4f6; color: #6b7280; padding: 2px 6px; border-radius: 4px; margin-bottom: 6px; text-transform: uppercase; font-weight: 600; }
+        .news-item p { font-size: 0.85rem; color: #374151; line-height: 1.4; margin-bottom: 4px; margin-top: 0; }
+        .news-date { font-size: 0.7rem; color: #9ca3af; }
+
+        @media (max-width: 1350px) {
+            .layout-wrapper { grid-template-columns: 1fr; }
+            .side-column { display: none; }
+            #main-content { max-width: 900px; margin: 0 auto; padding: 20px; }
+        }
+    </style>
 </head>
 
-<header>
-    
-    <nav id="main">
-        <ul>
-         <p>Katrien Han </p>
-         <a class="subpage" href="#vis-bar">About Me</a>
-        <a class="subpage" href="mywork.html">My work </a>
-        <button id="cv" class= "subpage" >CV </button>
-        </ul>
-    </nav>
-
-    <div class="flex-container">
-         <img src="me.JPG" width="150" height="100" />
-         <div class= "text-container">
-           <h1>Welcome to my website!</h1>
-           <p> I am an undergraduate year4 student at The School of Creative Media, CityU</p>
-           <a class="intro_button" href="https://www.xiaohongshu.com/user/profile/597dd08082ec3903c0fd68dd?xsec_token=YBD0jfEV3DEV4inewBNjd3EPZJ33QaBrDDLnD37wEbwo4=&xsec_source=app_share&xhsshare=CopyLink&shareRedId=Nz85REc1PDk-OUpFPEEwOUkzT0s6PUpN&apptime=1760685362&share_id=bbda173b739d4468bbc91c7a7f2a592e">Follow me on RedNote</a>
-           </div>
-    </div>
-</header>
-
-
 <body>
-<div class="box">
-    <div>One</div>
-    <div>Two</div>
-    <div>Three
-      <br>first line
-      <br> second line
-      </div>
-</div>
 
-<div class="grid-container">
- <div id="my_work1" class= "grid-item1"> My Work1</div>
- <div class="grid-item2">Work2</div>
- <div class="grid-item3">Work3</div>
- <script src="code.js"> </script>
-</div>
+    <div class="layout-wrapper">
 
- <div class="education">
-    <div class="school">
-        <h3 class="university">City University of Hong Kong</h3>
-        <p class="period">2022 - 2026</p>
-        <p class="degree">Bachelor of Arts and Science in New Media, School of Creative Media Hong Kong, China SAR</p>
-        <p class="modules">Core Modules: Human Computer Interaction, Mixed Reality, Computer Animation, Media Computing,
-            Data Visualization</p>
+        <aside class="side-column left-col">
+            <div class="col-header">Foot Print</div>
+            <div class="col-content" style="width: 100%;">
+                <div id="map-container"></div>
+                <div class="footprint-item">
+                    <span class="fp-date">Current</span>
+                    <span class="fp-loc">Hong Kong, HK</span>
+                    <span class="fp-coord">22.31° N, 114.16° E</span>
+                </div>
+                <div class="footprint-item">
+                    <span class="fp-date">Summer '25</span>
+                    <span class="fp-loc">Seoul, KR</span>
+                    <span class="fp-coord">37.56° N, 126.97° E</span>
+                </div>
+                <div class="footprint-item">
+                    <span class="fp-date">Spring '25</span>
+                    <span class="fp-loc">Zurich, CH</span>
+                    <span class="fp-coord">47.37° N, 8.54° E</span>
+                </div>
+                <div class="vertical-line"></div>
+            </div>
+        </aside>
+
+        <main id="main-content">
+            <header>
+                <div class="header-text">
+                    <h1>Katrien Han</h1>
+                    <p>Undergraduate Year 4 Student at The School of Creative Media, CityU. Focusing on HCI, Creative Machine learning, and Data Visualization. In my Free time, I'm professional tennis player and golf player.</p>
+                    
+                    <nav class="nav-container">
+                        <div class="nav-row primary">
+                            <a class="nav-btn" href="my_academic_cv.pdf">CV</a>
+                            
+                            <a class="nav-btn" href="#featured-projects">Works</a>
+                            
+                            <a class="nav-btn" href="papers.html">Papers</a>
+                        </div>
+                        <div class="nav-row social">
+                            <a class="nav-btn" href="https://www.linkedin.com/in/puzhu-han-195913353/" target="_blank">LinkedIn</a>
+                            <a class="nav-btn" href="https://github.com/katrien1213" target="_blank">GitHub</a>
+                            <a class="nav-btn" href="https://www.xiaohongshu.com/user/profile/597dd08082ec3903c0fd68dd" target="_blank">RedNote</a>
+                            <a class="nav-btn" href="mailto:katrien1213@gmial.com">Email</a>
+                        </div>
+                    </nav>
+                </div>
+                <img src="me.JPG" alt="Katrien Han" class="header-photo" />
+            </header>
+
+            <section id="education">
+                <h2 style="margin-top: 0;">Education</h2>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">City University of Hong Kong</h3><span class="cv-location">Hong Kong, China</span></div>
+                    <div class="cv-row"><p class="cv-role">Bachelor of Arts and Science in New Media</p><span class="cv-date">2022 - 2026</span></div>
+                    <p class="cv-details">Data Visualization, Human Computer Interaction, Mixed Reality, Machine Learning</p>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">Zurich University of Arts</h3><span class="cv-location">Zurich, Switzerland</span></div>
+                    <div class="cv-row"><p class="cv-role">Semester Exchange (Fine Arts)</p><span class="cv-date">Spring 2025</span></div>
+                    <p class="cv-details">Arts& AI; Arts& Internet; Art Practice</p>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">University of Arts London</h3><span class="cv-location">London, UK</span></div>
+                    <div class="cv-row"><p class="cv-role">Summer School (Creative Computing)</p><span class="cv-date">Summer 2023</span></div>
+                    <p class="cv-details">Creative Machine Learning; Phyical Computing</p>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">Hanyang University</h3><span class="cv-location">Seoul, Korea</span></div>
+                    <div class="cv-row"><p class="cv-role">Summer School (Cinema)</p><span class="cv-date">Summer 2025</span></div>
+                    <p class="cv-details">Cinema Studies; Digital Storytelling</p>
+                </div>
+            </section>
+
+            <section id="work">
+                <h2>Work Experience</h2>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">Studio for Narrative Spaces, CityU</h3><span class="cv-location">Hong Kong, China</span></div>
+                    <div class="cv-row"><p class="cv-role">Research Assistant</p><span class="cv-date">Aug 2025 - Present</span></div>
+                    <p class="cv-details">Researched GenAI workflow integration for speculative design curricula.</p>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">Tobias Klein Studio, CityU</h3><span class="cv-location">Hong Kong, China</span></div>
+                    <div class="cv-row"><p class="cv-role">Technical Assistant</p><span class="cv-date">Jun 2024 - Dec 2024</span></div>
+                    <p class="cv-details">Assisted in cross-disciplinary projects involving 3D printing.</p>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-row"><h3 class="cv-title">Generative Agent Game Startup</h3><span class="cv-location">Hong Kong, China</span></div>
+                    <div class="cv-row"><p class="cv-role">Co-Founder</p><span class="cv-date">2022 - 2024</span></div>
+                    <p class="cv-details">Co-initiated a startup focused on Art Therapy.</p>
+                </div>
+            </section>
+
+            <section id="skills-section" style="position: relative;">
+                <h2>Skills</h2>
+                <div id="skills-matrix" class="viz-container fade-view active"></div>
+                <div id="vis-bar" class="viz-container fade-view" style="display: none;">
+                    <div class="bar-nav">
+                        <button class="cat-btn active" data-cat="Software">Software</button>
+                        <button class="cat-btn" data-cat="Code">Code</button>
+                        <button class="cat-btn" data-cat="AI / ML">AI / ML</button>
+                        <button class="cat-btn" data-cat="Languages">Languages</button>
+                    </div>
+                    <div id="bar-chart-canvas"></div>
+                </div>
+                <button id="toggle-skills-view-btn">
+                    <span>Switch to Bar Chart</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6" />
+                    </svg>
+                </button>
+            </section>
+
+            <section id="timeline-section">
+                <h2>Project Timeline</h2>
+                <div id="project-network" class="viz-container"></div>
+                <a id="show-academic-tree-btn" href="tree.html">See Details <span>&rarr;</span></a>
+            </section>
+
+            <section id="featured-projects">
+                <h2 style="margin-bottom:20px;">Featured Works</h2>
+                <div class="project-grid">
+                    <a class="project-card" href="project-detail-1.html">
+                        <img src="eyetracking_img.jpg" alt="Eye-Tracking PDF Reader">
+                        <div class="project-info"><div class="project-title">Eye-Tracking PDF Reader</div></div>
+                    </a>
+                    <a class="project-card" href="project-detail-2.html">
+                        <img src="project2_image.jpg" alt="Experimental Animation Feminine">
+                        <div class="project-info"><div class="project-title">Animation: "Feminine"</div></div>
+                    </a>
+                    <a class="project-card" href="project-detail-3.html">
+                        <img src="project3_image.jpg" alt="Restoration of Buddha Heritage">
+                        <div class="project-info"><div class="project-title">ML Buddha Restoration</div></div>
+                    </a>
+                    <a class="project-card" href="project-detail-4.html">
+                        <img src="project4_image.jpg" alt="Generative calligraphy">
+                        <div class="project-info"><div class="project-title">Generative Calligraphy</div></div>
+                    </a>
+                    <a class="project-card" href="project-detail-5.html">
+                        <img src="project5_image.jpg" alt="Computing sculpture Pump">
+                        <div class="project-info"><div class="project-title">Interactive Sculpture</div></div>
+                    </a>
+                    <a class="project-card" href="project-detail-6.html">
+                        <img src="project6_image.jpg" alt="VR Game Elimination">
+                        <div class="project-info"><div class="project-title">VR Game "Elimination"</div></div>
+                    </a>
+                </div>
+            </section>
+            
+            <section>
+                <h2></h2>
+                <span class="viz-label"></span>
+                <div id="vis-bar-extra" class="viz-container"></div>
+                <span class="viz-label"></span>
+                <div id="keto-chart" class="viz-container"></div>
+            </section>
+        </main>
+
+        <aside class="side-column right-col">
+            <div class="col-header">News!</div>
+            <div class="col-content">
+                <div class="news-item">
+                    <div class="news-badge">Paper</div>
+                    <p>co author pubulish publication about althlete studies.</p>
+                    <span class="news-date"> 10 2025</span>
+                </div>
+                <div class="news-item">
+                    <div class="news-badge">Internship</div>
+                    <p>I become Research Assistant in Narrative Space</p>
+                    <span class="news-date">08 2025</span>
+                </div>
+                 <div class="news-item">
+                    <div class="news-badge">Study</div>
+                    <p>I finished exchange semster at Zurich!</p>
+                    <span class="news-date">07 2025</span>
+                </div>
+            </div>
+        </aside>
+
     </div>
 
-    <div class="school">
-        <h3 class="university">Zurich University of Arts</h3>
-        <p class="period">2025.02 - 2025.06</p>
-        <p class="program">Semester Exchange program in Fine Arts Department Zurich, Switzerland</p>
-        <p class="modules">Core Modules: Arts & AI, Arts & Internet, Artistic Practice, Interactive Installation</p>
+    <div id="academic-tree-overlay">
+        <button class="overlay-close-btn">&times;</button>
+        <div class="overlay-title">Academic Tree</div>
+        <div id="vis-tree-overlay-container" class="viz-container"></div>
     </div>
 
-    <div class="school">
-        <h3 class="university">University of Arts London</h3>
-        <p class="period">2023.07 - 2023.08</p>
-        <p class="program">Summer School program in Creative Computing Institute London, UK</p>
-        <p class="modules">Core Modules: Physical Computing, Creative Machine Learning</p>
-    </div>
+    <script src="tree.js"></script>        
+    <script src="interaction.js"></script> 
+    <script src="bar.js"></script>
+    <script src="networkProjects.js"></script>
+    <script src="skillsMatrix.js"></script>
+    <script src="code.js"></script> 
 
-    <div class="school">
-        <h3 class="university">Hanyang University</h3>
-        <p class="period">2025.07 - 2025.08</p>
-        <p class="program">Summer School Program Seoul, Korea</p>
-        <p class="modules">Core Modules: Contemporary South Korean Cinema, Film Editing, Narrative Storytelling</p>
-    </div>
+    <script>
+    function createInteractiveMap(containerId) {
+        const container = d3.select(containerId);
+        if (container.empty()) return;
 
-</div> 
+        const element = document.querySelector(containerId);
+        const width = element.clientWidth;
+        const height = element.clientHeight;
 
-<section id="vis-bar"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="bar.js"></script>
+        container.html("");
 
-<section id="vis-tree"></section>
- <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="tree.js"></script>
+        const svg = container.append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .style("background-color", "#f0f9ff");
 
-<section id="vis-timeline"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="timeline.js"></script>
+        const mapGroup = svg.append("g");
+        const projection = d3.geoNaturalEarth1().scale(width / 1.6).translate([width / 2, height / 1.8]);
+        const path = d3.geoPath(projection);
 
-<section id="vis-skills"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="skills.js"></script>
+        const visitedPlaces = [
+            { name: "Shanghai", coords: [121.4737, 31.2304] },
+            { name: "Paris", coords: [2.3522, 48.8566] },
+            { name: "Milano", coords: [9.19, 45.4642] },
+            { name: "Barcelona", coords: [2.1734, 41.3851] },
+            { name: "Shenzhen", coords: [114.0579, 22.5431] },
+            { name: "Xizang", coords: [91.1172, 29.6469] },
+            { name: "Greece", coords: [23.7275, 37.9838] }
+        ];
 
-<section id="project-network"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="networkProjects.js"></script>
+        const studiedPlaces = [
+            { name: "Hong Kong", coords: [114.1694, 22.3193] },
+            { name: "London", coords: [-0.1276, 51.5072] },
+            { name: "Zurich", coords: [8.5417, 47.3769] },
+            { name: "Seoul", coords: [126.978, 37.5665] }
+        ];
 
-<section id="skills-matrix"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="skillsMatrix.js"></script>
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "map-tooltip")
+            .style("position", "absolute")
+            .style("background", "rgba(255, 255, 255, 0.95)")
+            .style("backdrop-filter", "blur(4px)")
+            .style("padding", "6px 12px")
+            .style("border", "1px solid #e5e7eb")
+            .style("box-shadow", "0 4px 6px rgba(0,0,0,0.05)")
+            .style("border-radius", "6px")
+            .style("pointer-events", "none")
+            .style("opacity", 0)
+            .style("font-size", "10px")
+            .style("font-family", "Inter, sans-serif")
+            .style("font-weight", "600")
+            .style("color", "#374151")
+            .style("z-index", "9999");
 
+        d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+            .then(data => {
+                mapGroup.selectAll("path")
+                    .data(data.features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("fill", "#ffffff")
+                    .attr("stroke", "#cbd5e1")
+                    .attr("stroke-width", 0.5);
 
-<section id="map"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="dotdensity.js"></script>
+                function drawDots(placeData, color) {
+                    mapGroup.selectAll(".dot-" + color.replace("#",""))
+                        .data(placeData)
+                        .enter().append("circle")
+                        .attr("cx", d => projection(d.coords)[0])
+                        .attr("cy", d => projection(d.coords)[1])
+                        .attr("r", 4)
+                        .attr("fill", color)
+                        .attr("stroke", "#fff")
+                        .attr("stroke-width", 1.5)
+                        .style("cursor", "pointer")
+                        .on("mouseover", function(event, d) {
+                            d3.select(this).transition().duration(200).attr("r", 8).attr("stroke-width", 2);
+                            tooltip.style("opacity", 1)
+                                .html(d.name)
+                                .style("left", (event.pageX + 10) + "px")
+                                .style("top", (event.pageY - 20) + "px");
+                        })
+                        .on("mouseout", function() {
+                            d3.select(this).transition().duration(200).attr("r", 4).attr("stroke-width", 1.5);
+                            tooltip.style("opacity", 0);
+                        });
+                }
+                drawDots(visitedPlaces, "#fb7185"); 
+                drawDots(studiedPlaces, "#9333ea"); 
+            });
 
+        const zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on("zoom", (event) => {
+                mapGroup.attr("transform", event.transform);
+                mapGroup.selectAll("circle").attr("r", 4 / event.transform.k);
+                mapGroup.selectAll("path").attr("stroke-width", 0.5 / event.transform.k);
+            });
+        svg.call(zoom);
+    }
 
-
-<script>
-    // Call the function to draw the chart
-    createSF36Viz('#sf36-chart'); 
-</script>
-
-
-<section id="keto-chart"></section>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="ketoViz.js"></script>
-
-
-<section id="map"></section>
-<script src="interactiveMap.js"></script> 
-<script>
-    // Call the function with your container ID
-    createInteractiveMap("#map"); 
-</script>
-
-
+    document.addEventListener("DOMContentLoaded", function() {
+        createInteractiveMap("#map-container");
+    });
+    </script>
 </body>
-
 </html>

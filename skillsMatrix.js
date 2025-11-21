@@ -1,114 +1,136 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-  const width = 800;
-  const height = 800;
-  const margin = { top: 180, right: 50, bottom: 50, left: 180 };
-  const cellSize = 25;
+    // 1. SETUP
+    const container = d3.select("#skills-matrix");
+    container.selectAll("*").remove();
 
-  const svg = d3.select("#skills-matrix")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    // 2. DATA
+    const allData = [
+        { cat: "Software", items: [
+            { name: "Unity", val: 4 }, { name: "UE5", val: 3 },
+            { name: "Blender", val: 2 }, { name: "Substance", val: 2 },
+            { name: "P5.js", val: 5 }, { name: "Figma", val: 5 }
+        ]},
+        { cat: "Machine Learning", items: [
+            { name: "PyTorch", val: 3 }, { name: "TensorFlow", val: 2 },
+            { name: "Scikit-learn", val: 2 }
+        ]},
+        { cat: "Code", items: [
+            { name: "C#", val: 3 }, { name: "C++", val: 2 },
+            { name: "HTML/CSS", val: 3 }, { name: "Java", val: 4 },
+            { name: "Python", val: 3 }
+        ]},
+        { cat: "Languages", items: [
+            { name: "English", val: 5 }, { name: "Mandarin", val: 5 },
+            { name: "Cantonese", val: 3 }, { name: "German", val: 2 }
+        ]}
+    ];
 
-  // --- 分组信息 & 缩短标签 ---
-  const groups = [
-    { name: "Software", nodes: ["Unity","UE5","Blender","SubstancePainter","Nomad","P5js","Processing","Spyder","VSCode","AE","XD","PS","Procreate","Figma"], color: "#6baed6" },
-    { name: "Programming", nodes: ["C#","C++","HTML","Java","Python"], color: "#9ecae1" },
-    { name: "ML", nodes: ["Scikit-learn","PyTorch","TensorFlow"], color: "#74c476" },
-    { name: "Languages", nodes: ["ENG7","CN","DE","CANT"], color: "#fdae6b" },
-    { name: "Sport", nodes: ["Tennis","Golf"], color: "#e377c2" }
-  ];
+    // 3. CONFIGURATION
+    const margin = { top: 35, right: 0, bottom: 20, left: 0 }; 
+    const totalWidth = 800; // Fixed internal width to match standard content width
+    const rowHeight = 28;       
+    const catHeaderHeight = 35; 
+    
+    const boxSize = 11;         
+    const boxGap = 3;           
+    const labelWidth = 95;      // Increased slightly for "Scikit-learn" text
+    
+    // Calculate the exact width of ONE column (Label + 5 Boxes)
+    const singleColWidth = labelWidth + (5 * (boxSize + boxGap));
+    
+    // Calculate "Justified" Spacing
+    // Formula: (TotalWidth - Width of Last Column) / (Number of Gaps)
+    // This gives us the step distance between the START of each column.
+    const numberOfCols = allData.length;
+    const spacingStep = (totalWidth - singleColWidth) / (numberOfCols - 1);
 
-  // --- 构建节点数组（含分类信息） ---
-  let nodes = ["Skills"];
-  let nodeGroups = ["root"];
-  groups.forEach(g => {
-    nodes.push(g.name);
-    nodeGroups.push("category");
-    g.nodes.forEach(n => {
-      nodes.push(n);
-      nodeGroups.push(g.name);
+    // Calculate Height
+    const maxItems = Math.max(...allData.map(d => d.items.length));
+    const totalHeight = (maxItems * rowHeight) + catHeaderHeight + margin.top + margin.bottom;
+
+    // 4. CREATE SVG
+    const svg = container.append("svg")
+        .attr("width", "100%")
+        .attr("height", totalHeight)
+        .attr("viewBox", `0 0 ${totalWidth} ${totalHeight}`)
+        .style("font-family", "'Inter', sans-serif");
+
+    // 5. RENDER LOOP
+    allData.forEach((category, colIndex) => {
+        
+        // ALIGNMENT LOGIC:
+        // Col 0 starts at 0.
+        // Col 3 starts at (800 - singleColWidth).
+        const xOffset = colIndex * spacingStep;
+        
+        let currentY = margin.top;
+
+        // A. Draw Category Header
+        svg.append("text")
+            .attr("x", xOffset)
+            .attr("y", currentY - 15)
+            .text(category.cat)
+            .style("font-size", "10px")
+            .style("font-weight", "700")
+            .style("fill", "#111827")
+            .style("text-transform", "uppercase")
+            .style("letter-spacing", "0.05em");
+
+        // B. Draw Items
+        category.items.forEach(skill => {
+            
+            const group = svg.append("g")
+                .attr("transform", `translate(${xOffset}, ${currentY})`)
+                .style("cursor", "pointer");
+
+            // 1. Skill Name
+            group.append("text")
+                .attr("x", 0)
+                .attr("y", boxSize - 2)
+                .text(skill.name)
+                .style("font-size", "11px")
+                .style("fill", "#6b7280")
+                .style("font-weight", "400");
+
+            // 2. Proficiency Boxes
+            const boxesStartX = labelWidth; 
+            
+            for (let i = 0; i < 5; i++) {
+                group.append("rect")
+                    .attr("x", boxesStartX + (i * (boxSize + boxGap)))
+                    .attr("y", 0)
+                    .attr("width", boxSize)
+                    .attr("height", boxSize)
+                    .attr("rx", 2)
+                    .attr("ry", 2)
+                    .attr("fill", i < skill.val ? "#374151" : "#f3f4f6") 
+                    .attr("class", i < skill.val ? "filled-box" : "empty-box");
+            }
+
+            // 3. Interaction Overlay
+            group.append("rect")
+                .attr("x", -5)
+                .attr("y", -5)
+                .attr("width", singleColWidth) // Precise width
+                .attr("height", rowHeight)
+                .attr("fill", "transparent")
+                .on("mouseover", function() {
+                    d3.select(this.parentNode).select("text")
+                      .style("fill", "#992feae5") 
+                      .style("font-weight", "600");
+                    d3.select(this.parentNode).selectAll(".filled-box")
+                      .style("fill", "#992feae5");
+                })
+                .on("mouseout", function() {
+                    d3.select(this.parentNode).select("text")
+                      .style("fill", "#6b7280")
+                      .style("font-weight", "400");
+                    d3.select(this.parentNode).selectAll(".filled-box")
+                      .style("fill", "#374151");
+                });
+
+            currentY += rowHeight;
+        });
     });
-  });
-
-  // --- 构建邻接矩阵 ---
-  const nodeIndex = {};
-  nodes.forEach((d,i)=> nodeIndex[d]=i);
-
-  const matrix = Array.from({length: nodes.length}, () => Array(nodes.length).fill(0));
-
-  // Skills 连接各类别
-  groups.forEach(g => {
-    matrix[nodeIndex["Skills"]][nodeIndex[g.name]] = 1;
-    matrix[nodeIndex[g.name]][nodeIndex["Skills"]] = 1;
-    // 类别连接子节点
-    g.nodes.forEach(n => {
-      matrix[nodeIndex[g.name]][nodeIndex[n]] = 1;
-      matrix[nodeIndex[n]][nodeIndex[g.name]] = 1;
-    });
-  });
-
-  // --- 绘制矩阵格子 ---
-  const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-
-  const rows = g.selectAll(".row")
-    .data(matrix)
-    .enter()
-    .append("g")
-    .attr("class","row")
-    .attr("transform",(d,i)=>`translate(0,${i*cellSize})`);
-
-  rows.selectAll(".cell")
-    .data(d=>d)
-    .enter()
-    .append("rect")
-    .attr("x",(d,i)=>i*cellSize)
-    .attr("width",cellSize-1)
-    .attr("height",cellSize-1)
-    .attr("fill",d => d===1 ? "#4682B4" : "#f0f0f0")
-    .attr("stroke","#ccc");
-
-  // --- 横向标签 ---
-  const xLabels = svg.append("g")
-    .attr("transform", `translate(${margin.left},${margin.top-5})`);
-
-  xLabels.selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("x",(d,i)=>i*cellSize + cellSize/2)
-    .attr("y",0)
-    .attr("text-anchor","start")
-    .attr("transform",(d,i)=>`rotate(-90,${i*cellSize + cellSize/2},0)`)
-    .attr("font-size","10px")
-    .text(d=>d);
-
-  // --- 纵向标签 ---
-  const yLabels = svg.append("g")
-    .attr("transform", `translate(${margin.left-5},${margin.top})`);
-
-  yLabels.selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("x",0)
-    .attr("y",(d,i)=>i*cellSize + cellSize/2)
-    .attr("text-anchor","end")
-    .attr("dominant-baseline","middle")
-    .attr("font-size","10px")
-    .text(d=>d);
-
-  // --- 给类别节点上色 ---
-  nodes.forEach((n,i)=>{
-    let color = "#4682B4"; // 默认蓝色
-    groups.forEach(g=>{
-      if(n === g.name) color = g.color;
-      if(g.nodes.includes(n)) color = g.color;
-    });
-    g.selectAll(".row").filter((d,ri)=>ri===i)
-      .selectAll("rect")
-      .attr("fill",(d,j)=> d===1 ? color : "#f0f0f0");
-  });
-
 });
-

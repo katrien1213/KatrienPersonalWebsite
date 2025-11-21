@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sculpture "Pump" - Katrien Han</title>
+    
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Consistent Layout) --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        /* Quote Style */
+        blockquote {
+            border-left: 4px solid #9333ea;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #4b5563;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Component List */
+        .component-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .component-item {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .component-item strong {
+            display: block;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .component-item span {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* Diagram/Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .image-gallery figure {
+            margin: 0;
+        }
+        .image-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            height: 250px;
+            object-fit: cover;
+        }
+        .image-gallery figcaption {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <header class="project-header">
+                <span class="project-category">Interactive Sculpture • Physical Computing</span>
+                <h1>Pump: A Kinetic Exploration of Fertilization</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Timeline</strong>
+                        <span>2024.12</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tech Stack</strong>
+                        <span>Arduino, Air Pumps, Plasma Ball</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>Hardware Engineer & Sculptor</span>
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="#" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Watch Performance
+                    </a>
+                </div>
+            </header>
+
+            <article class="content-wrapper">
+                
+                <img src="project5_image.jpg" alt="Pump Interactive Sculpture" class="hero-image">
+
+                <h2>Conceptual Framework: "Building a Home"</h2>
+                <p>
+                    This artwork is inspired by the poetic yet painful theory that menstrual pain arises because the womb is "building a home" for new life. Every month, the body tirelessly prepares for the union of egg and sperm. When no fertilization occurs, the womb must dismantle these intricate preparations, resulting in the physical process of bleeding.
+                </p>
+                <p>
+                    <strong>"Pump"</strong> intends to visualize this cycle of construction, anticipation, and release through kinetic movement and light. It combines fixed sculptural models with Arduino-driven pneumatic devices to simulate the biological rhythm of life.
+                </p>
+
+                <h2>Biological Context</h2>
+                <p>
+                    The interaction logic is based on recent biological studies regarding fertilization. Contrary to the popular myth that the "strongest" sperm wins the race, research suggests that the egg plays an active role in selection.
+                </p>
+                <blockquote>
+                    "It is the egg that actively chooses the proper sperm, rather than the sperm simply winning a race of strength."
+                </blockquote>
+                <p>
+                    To reflect this, the central element (the Egg) remains still and constant, while the surrounding elements (Sperm) attempt to interact with it. The successful interaction is not determined by speed or force, but by a randomized selection logic programmed into the system.
+                </p>
+
+                <h2>Technical Design & Implementation</h2>
+                <p>
+                    The installation uses a combination of light, air inflation (pneumatics), and electricity to symbolize flow and development.
+                </p>
+
+                <div class="component-list">
+                    <div class="component-item">
+                        <strong>The Egg (Center)</strong>
+                        <span>Represented by a Plasma Ball. It provides a static but electrically charged core, symbolizing the potential for life.</span>
+                    </div>
+                    <div class="component-item">
+                        <strong>The Sperm (Surroundings)</strong>
+                        <span>Represented by 4 rubber balloons. These are connected to air pumps to simulate organic movement (inflation/deflation).</span>
+                    </div>
+                    <div class="component-item">
+                        <strong>Control System</strong>
+                        <span>Arduino Uno controlling a relay module for the air pumps and the power state of the plasma ball.</span>
+                    </div>
+                    <div class="component-item">
+                        <strong>Visual Metaphor</strong>
+                        <span>Electricity arcs within the plasma ball when a balloon (conductive rubber) touches it, visualizing the "spark" of fertilization.</span>
+                    </div>
+                </div>
+
+                <div class="image-gallery">
+                    <figure>
+                         <img src="Arduino.JPG" alt="Pneumatic Mechanism">
+                        <figcaption>Arduino & Air Pump Circuitry</figcaption>
+                    </figure>
+                    <figure>
+                         <img src="Installation.JPG" alt="Interaction Detail">
+                        <figcaption>Rubber Balloon Contacting Plasma Ball</figcaption>
+                    </figure>
+                </div>
+
+                <h2>Interaction Logic</h2>
+                <p>
+                    There are four balloons positioned around the central plasma ball. The interaction is programmed to happen <strong>randomly</strong>.
+                </p>
+                <p>
+                    The Arduino triggers the air pumps to inflate specific balloons at random intervals. As a balloon expands, it physically presses against the glass of the plasma ball. This contact attracts the plasma filaments inside the ball to that specific point of contact, creating a concentrated beam of light—symbolizing the moment of connection and the egg's "choice."
+                </p>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>

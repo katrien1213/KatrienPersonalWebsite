@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Buddha Restoration - Katrien Han</title>
+    
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Same as Project 1) --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography for Article */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        blockquote {
+            border-left: 4px solid #9333ea;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #4b5563;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Image Gallery for Comparison */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .image-gallery figure {
+            margin: 0;
+        }
+        .image-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            height: 250px;
+            object-fit: cover;
+        }
+        .image-gallery figcaption {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Tech Tags */
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #db2777; 
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <header class="project-header">
+                <span class="project-category">Art & Technology • Cultural Heritage</span>
+                <h1>Machine Learning Based "Restoration of Buddha Heritage"</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Timeline</strong>
+                        <span>2024.01</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tech Stack</strong>
+                        <span>Python, PyTorch, Scikit-learn (KNN)</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>Creative Technologist</span>
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="#" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        GitHub Code
+                    </a>
+                </div>
+            </header>
+
+            <article class="content-wrapper">
+                
+                <img src="project3_image.jpg" alt="Machine Learning Buddha Restoration" class="hero-image">
+
+                <h2>Artist Statement</h2>
+                <p>
+                    This project constitutes a light installation that employs machine learning to generate and classify video representations of hundreds of Buddha figures, each associated with distinct blessings. The endeavor seeks to explore the convergence of spiritual concepts within Buddhism and the realm of machine learning, focusing on training models to encompass humane and compassionate perspectives derived from Buddhist ideology.
+                </p>
+                <p>
+                    The installation is projected onto four walls. It juxtaposes the historical tragedy of the LongGang stone caves—where statues were destructed in 2000—with a modern, digital restoration. The machine-generated statues, created via the <code>KNN algorithm</code>, are intentionally blurred. This blur signifies that Buddha has no specific appearance but is rather the embodiment of inner kindness.
+                </p>
+
+                <div class="image-gallery">
+                    <figure>
+                        <img src="Longgang.jpg" alt="LongGang 1910">
+                        <figcaption>LongGang Stone Cave (1910) by James F. Broumton</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="ML.PNG" alt="AI Generated Result">
+                        <figcaption>Machine Generated Restoration (2024)</figcaption>
+                    </figure>
+                </div>
+
+                <h2>1. Background & Philosophy</h2>
+                <p>
+                    While conventional ethical guidelines for AI predominantly adhere to Western norms, I believe the key to instilling moral standards in machines lies in endowing them with humane characteristics: compassion, harmony, and serenity.
+                </p>
+                <p>
+                    Drawing from Peter D. Hershock's <em>"Buddhism and Intelligent Technology,"</em> this project highlights the ethical implications of AI from a non-Western perspective. Hershock argues that Buddhist ethics, rooted in compassion and mindfulness, can contribute to the development of a more humane AI.
+                </p>
+                
+                <h3>Historical Context</h3>
+                <p>
+                    The project takes inspiration from the LongGang stone cave, aiming to restore Buddha statues tragically destroyed in 2000. Unlike similar initiatives such as Harvard's <strong>CAMLab</strong>, which focuses heavily on sensory immersion, this project delves into the cultural, historical, and philosophical dimensions of Buddhism to encourage deeper reflection.
+                </p>
+
+                <h2>2. Technical Implementation</h2>
+                <p>
+                    The core of the restoration utilizes the <code>K-Nearest Neighbors (KNN)</code> algorithm for both image regeneration and classification.
+                </p>
+
+                <h3>The Dataset</h3>
+                <p>
+                    Images were sourced from Chinese museum websites. I manually classified each statue based on symbolic attributes found in Buddhist art history:
+                </p>
+                <blockquote>
+                    "Eyes symbolize wisdom, the lotus flower signifies the progress of the soul, the swastika implies good fortune... and the wheel of law represents the path to enlightenment."
+                    <br>— Hodge, <em>50 Art Ideas You Really Need to Know</em>
+                </blockquote>
+
+                <h3>The Algorithm</h3>
+                <p>
+                    <strong>Regeneration:</strong> The code iterates through the original dataset. For each image, it finds its k-nearest neighbors. The features of these neighbors are averaged pixel-by-pixel to create a new feature vector, resulting in the unique "blurred" aesthetic that represents the spiritual essence rather than physical precision.
+                </p>
+                <p>
+                    <strong>Classification:</strong> A grid search was performed to tune the hyperparameters. The trained KNN classifier predicts the blessing label (e.g., "Compassion", "Wisdom") for each generated image, which is then displayed alongside the visual.
+                </p>
+
+                <h2>3. Installation Setup</h2>
+                <p>
+                    The physical manifestation of this project requires a controlled environment to ensure immersion:
+                </p>
+                <ul>
+                    <li><strong>Environment:</strong> A dark exhibition room with controlled ambient lighting.</li>
+                    <li><strong>Hardware:</strong> High-performance computer for real-time generation.</li>
+                    <li><strong>Display:</strong> High-quality projection system mapping visuals onto four walls.</li>
+                </ul>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>

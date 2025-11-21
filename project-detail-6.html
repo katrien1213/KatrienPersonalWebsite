@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Trails: VR Motion - Katrien Han</title>
+    
+    <!-- Re-use your main style -->
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Consistent Layout) --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .feature-card h4 {
+            margin-top: 0;
+            color: #111;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: #6b7280;
+        }
+
+        /* Data/Math Block */
+        .math-block {
+            background: #1e293b;
+            color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .math-block h4 {
+            color: #9333ea;
+            margin-top: 0;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        .math-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .math-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        .math-list li::before {
+            content: "∑";
+            color: #9333ea;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- 1. Navigation -->
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <!-- 2. Project Header -->
+            <header class="project-header">
+                <span class="project-category">Virtual Reality • Immersive Analytics</span>
+                <h1>Temporal Trails: Embodied Motion in VR</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Timeline</strong>
+                        <span>2024.09</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tech Stack</strong>
+                        <span>Unity, Kinect, Oculus SDK</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>VR Developer & Interaction Designer</span>
+                    </div>
+                </div>
+
+                <!-- Project Links -->
+                <div class="project-links">
+                    <a href="#" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        View System Diagram
+                    </a>
+                </div>
+            </header>
+
+            <!-- 3. Main Content Area -->
+            <article class="content-wrapper">
+                
+                <!-- Hero Image -->
+                <img src="project6_image.jpg" alt="VR Temporal Trails Visualization" class="hero-image">
+
+                <!-- Overview -->
+                <h2>Overview</h2>
+                <p>
+                    <strong>"Temporal Trails"</strong> transforms the concept of chronophotography (visualizing movement over time) into an embodied VR system. By capturing motion as 3D temporal-spatial geometry, the project reveals the hidden poetics of physical exertion.
+                </p>
+                <p>
+                    The system acts as both a training tool and a generative artwork. It captures user motion via Kinect and VR controllers, creating real-time 3D trails where geometry encodes velocity, acceleration, and directional force. These trails are then compared against a curated 3D dataset of professional athletes (specifically tennis players) to construct "ideal" reference trajectories.
+                </p>
+
+                <!-- Technical System -->
+                <h2>System Architecture</h2>
+                <p>
+                    The project bridges the gap between precise skill assessment and artistic expression through a hybrid tracking system.
+                </p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h4>Motion Capture</h4>
+                        <p>Combines Kinect/Camera-based body tracking for posture with high-frequency VR controller data for hand trajectory.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Generative Geometry</h4>
+                        <p>Trails are generated dynamically in Unity. The width and color of the trail mesh shift in real-time based on velocity and force.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Haptic Feedback</h4>
+                        <p>Deviations from the "ideal" path trigger haptic vibrations in the controllers, allowing users to "feel" the error.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Visual Fractures</h4>
+                        <p>Abrupt changes in acceleration or collisions create visible "fractures" or breaks in the trail mesh, visualizing lack of fluidity.</p>
+                    </div>
+                </div>
+
+                <!-- Interaction Design -->
+                <h2>Interaction Modes</h2>
+                <p>
+                    After performing a swing or movement, the user is presented with two distinct modes of analysis:
+                </p>
+                
+                <h3>1. Static Overlay Mode</h3>
+                <p>
+                    The user's trail remains frozen in 3D space, superimposed over the "ideal" reference trail. This allows for a spatial inspection of the arc, extension, and follow-through. Users can walk around the frozen trails to inspect deviations from any angle.
+                </p>
+
+                <h3>2. Temporal Replay Mode</h3>
+                <p>
+                    The motion is replayed alongside an animated ghost avatar of the professional reference. This highlights timing discrepancies—revealing where the user was too fast, too slow, or out of sync with the optimal kinetic chain.
+                </p>
+
+                <!-- Mathematical Analysis -->
+                <h2>Mathematical & Data Analysis</h2>
+                <p>
+                    The system is grounded in rigorous mathematical analysis of the motion curves. These metrics drive both the skill assessment score and the generative aesthetics of the visualization.
+                </p>
+
+                <div class="math-block">
+                    <h4>Computed Metrics</h4>
+                    <ul class="math-list">
+                        <li>Curve Length & Arc Consistency</li>
+                        <li>Swept Area (Spatial Volume)</li>
+                        <li>Angular Deviation (Vector Analysis)</li>
+                        <li>Velocity Mapping (Speed vs Time)</li>
+                    </ul>
+                </div>
+
+                <h2>Conclusion</h2>
+                <p>
+                    The result is a hybrid tracking artwork that reveals the tension between precision, embodiment, and the poetics of physical motion. It moves beyond simple "gamification" of sports, offering instead a deep, phenomenological window into how we move through space.
+                </p>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feminine: Experimental Animation - Katrien Han</title>
+    
+    <!-- Re-use your main style -->
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Consistent with Project 1 & 3) --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        /* Festival Badge Styling */
+        .festival-list {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        .festival-list h3 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+        .festival-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #111;
+        }
+        .festival-item::before {
+            content: "★";
+            color: #9333ea;
+        }
+
+        /* Specs Grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            background: #fff;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .spec-row {
+            font-size: 0.9rem;
+        }
+        .spec-label {
+            color: #6b7280;
+            margin-right: 8px;
+        }
+        .spec-value {
+            color: #111;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <!-- 1. Navigation -->
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <!-- 2. Project Header -->
+            <header class="project-header">
+                <span class="project-category">Experimental Animation • Digital Art</span>
+                <h1>Feminine: An Abstract Celebration of Life</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Year</strong>
+                        <span>2024</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Technique</strong>
+                        <span>Collage, Impressionism, 12fps</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>Director & Animator</span>
+                    </div>
+                </div>
+
+                <!-- Project Links -->
+                <div class="project-links">
+                    <a href="https://drive.google.com/file/d/1tCnJeH8tRh0ysv05xvMig85NS5mR9xlu/view?usp=sharing" target="_blank" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Watch Full Film
+                    </a>
+                </div>
+            </header>
+
+            <!-- 3. Main Content Area -->
+            <article class="content-wrapper">
+                
+                <!-- Hero Image -->
+                <img src="project2_image.jpg" alt="Feminine Animation Still" class="hero-image">
+
+                <!-- Overview -->
+                <h2>Overview</h2>
+                <p>
+                    "Feminine" is an experimental animation that abstracts the female form to celebrate the intrinsic connection of women with life. Incorporating various symbols and metaphors, the film conveys deep affection through a carefully curated palette of colors, shapes, and movements. 
+                </p>
+                <p>
+                    The narrative arc is driven by the interplay of sound, symbolizing the beginning and end of life. As women are born into this world and continuously give birth to new lives, their boundless creativity and nurturing nature are highlighted through fluid, non-regular animatic elements.
+                </p>
+
+                <!-- Selected Screenings -->
+                <div class="festival-list">
+                    <h3>Official Selection</h3>
+                    <div class="festival-item">International Experimental Film Festival</div>
+                    <div class="festival-item">Alexandre Trauner ART/Film Festival</div>
+                    <div class="festival-item">NEOSFEST Encuentro Internacional de Experimentación</div>
+                </div>
+
+                <!-- Concept & Philosophy -->
+                <h2>Conceptual Framework</h2>
+                <p>
+                    Historically, feminine themes in art have been explored through depictions of the body, motherhood, and women’s roles in society. Abstract animation provides an opportunity to transcend literal representation, instead using metaphors to express the fluidity, grace, and depth of the feminine experience.
+                </p>
+                <p>
+                    By abstracting the female form, this project steps away from objectification, celebrating instead the emotional and spiritual aspects of womanhood. Themes such as birth, motherhood, and the cyclical nature of life are conveyed through movement and fluid transitions between shapes and colors.
+                </p>
+
+                <!-- Aesthetic & Technique -->
+                <h2>Aesthetic & Technique</h2>
+                <p>
+                    Inspired by the abstract animations of Grau and the visual complexity of kaleidoscopes, the film employs <strong>Collage</strong> and <strong>Impressionism</strong> techniques to express its theme. I chose to focus on floating and non-regular animatic elements to show the beauty of women by abstracting body parts rather than rendering them realistically.
+                </p>
+                <p>
+                    The choice of a <strong>12fps (frames per second)</strong> frame rate gives the animation a distinct, tactile texture, emphasizing the hand-crafted nature of the movement and the emotional weight of every frame.
+                </p>
+
+                <!-- Technical Specs -->
+                <h2>Technical Specifications</h2>
+                <div class="specs-grid">
+                    <div class="spec-row"><span class="spec-label">Duration:</span> <span class="spec-value">3 min 36 sec</span></div>
+                    <div class="spec-row"><span class="spec-label">Frame Rate:</span> <span class="spec-value">12 fps</span></div>
+                    <div class="spec-row"><span class="spec-label">Resolution:</span> <span class="spec-value">1080P</span></div>
+                    <div class="spec-row"><span class="spec-label">Aspect Ratio:</span> <span class="spec-value">12:5 (Ultrawide)</span></div>
+                    <div class="spec-row"><span class="spec-label">Sound:</span> <span class="spec-value">Stereo</span></div>
+                    <div class="spec-row"><span class="spec-label">Location:</span> <span class="spec-value">Hong Kong</span></div>
+                </div>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>

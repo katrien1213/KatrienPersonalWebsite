@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Tree - Katrien Han</title>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Soft gray background */
+            overflow: hidden; /* Hide scrollbars, we zoom inside */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* --- Navigation --- */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #1e293b;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            color: #9333ea; /* Purple on hover */
+            border-color: #9333ea; /* Purple on hover */
+        }
+
+        /* --- The Chart Container --- */
+        #vis-tree {
+            width: 100%;
+            height: 100vh;
+            cursor: grab;
+        }
+        #vis-tree:active {
+            cursor: grabbing;
+        }
+
+        /* --- D3 Elements Styles --- */
+        .node circle {
+            fill: #fff;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .node text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            pointer-events: none;
+            text-shadow: 
+                0 1px 0 #fff, 
+                1px 0 0 #fff, 
+                0 -1px 0 #fff, 
+                -1px 0 0 #fff; /* Outline for readability */
+        }
+
+        .node:hover circle {
+            stroke: #9333ea; /* Purple on hover */
+            stroke-width: 3px;
+            r: 10px; /* Enlarge */
+        }
+
+        .link {
+            fill: none;
+            stroke: #cbd5e1; /* Light gray lines */
+            stroke-width: 1.5px;
+            transition: stroke 0.3s;
+        }
+        
+        /* Instructions Overlay */
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #64748b;
+            font-size: 0.8rem;
+            pointer-events: none;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="index.html" class="back-btn">
+            <span>&larr;</span> Back to Portfolio
+        </a>
+    </div>
+
+    <div id="vis-tree"></div>
+    
+    <div class="instructions">
+        Scroll to Zoom • Drag to Pan • Click Purple Nodes to Expand/Collapse
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // --- 1. THE DATA ---
+            const dataTree = {
+                name: "Katrien's Projects",
+                children: [
+                    {
+                        name: "Eye Tracking PDF Reader",
+                        children: [
+                            { name: "Tools", children: [{name: "Python (NLP)"}, {name: "Tobii SDK"}, {name: "PyQt"}] },
+                            { name: "Skills", children: [{name: "Gaze Interaction"}, {name: "Cognitive Load Analysis"}] },
+                            { name: "Context", children: [{name: "Accessibility"}, {name: "HCI Research"}] }
+                        ]
+                    },
+                    {
+                        name: "VR Motion Trace",
+                        children: [
+                            { name: "Tools", children: [{name: "Unity 3D"}, {name: "Meta Quest SDK"}, {name: "C#"}] },
+                            { name: "Skills", children: [{name: "Spatial Mapping"}, {name: "Immersive Analytics"}] },
+                            { name: "Context", children: [{name: "Digital Performance"}] }
+                        ]
+                    },
+                    {
+                        name: "Feminine Animation",
+                        children: [
+                            { name: "Tools", children: [{name: "Unity"}, {name: "Nomad Sculpt"}, {name: "AfterEffects"}] },
+                            { name: "Skills", children: [{name: "Visual Metaphor"}, {name: "2D-3D Hybrid"}] }
+                        ]
+                    },
+                    {
+                        name: "Buddha Restoration",
+                        children: [
+                            { name: "Tools", children: [{name: "PyTorch"}, {name: "KNN Algorithms"}, {name: "NumPy"}] },
+                            { name: "Context", children: [{name: "Cultural Heritage"}, {name: "AI Reconstruction"}] }
+                        ]
+                    },
+                    {
+                        name: "Generative Calligraphy",
+                        children: [
+                            { name: "Tools", children: [{name: "P5.js"}, {name: "ML5.js"}] },
+                            { name: "Skills", children: [{name: "Gesture Interaction"}, {name: "Generative Art"}] }
+                        ]
+                    },
+                    {
+                        name: "Integrative Sculpture",
+                        children: [
+                            { name: "Tools", children: [{name: "Arduino"}, {name: "Blender"}, {name: "Pneumatics"}] },
+                            { name: "Context", children: [{name: "Physical Computing"}] }
+                        ]
+                    }
+                ]
+            };
+
+            // --- 2. SETUP DIMENSIONS ---
+            const container = document.getElementById("vis-tree");
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Create SVG with Zoom capability
+            const svg = d3.select("#vis-tree").append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .call(d3.zoom().on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                }))
+                .on("dblclick.zoom", null); // Disable double click zoom to allow clicking nodes
+
+            const g = svg.append("g")
+                .attr("transform", `translate(100, ${height/2})`); // Start centered vertically
+
+            // --- 3. TREE CONFIGURATION ---
+            let i = 0;
+            const duration = 500;
+            
+            // Define Tree Layout (Horizontal: nodeSize gives [height, width] spacing)
+            const tree = d3.tree().nodeSize([30, 180]); // 30px vertical gap, 180px horizontal gap
+
+            let root = d3.hierarchy(dataTree, d => d.children);
+            root.x0 = 0; // Start vertical center
+            root.y0 = 0; // Start horizontal left
+
+            // Optional: Collapse items deep in the tree on load
+            // root.children.forEach(collapse); 
+
+            update(root);
+
+            // --- 4. UPDATE FUNCTION (THE CORE LOGIC) ---
+            function update(source) {
+                
+                const nodes = root.descendants();
+                const links = root.links();
+
+                // Compute the layout
+                tree(root);
+
+                // --- NODES ---
+                const node = g.selectAll('g.node')
+                    .data(nodes, d => d.id || (d.id = ++i));
+
+                // Enter new nodes at the parent's previous position
+                const nodeEnter = node.enter().append('g')
+                    .attr('class', 'node')
+                    .attr("transform", d => `translate(${source.y0},${source.x0})`)
+                    .on('click', click);
+
+                // Add Circle
+                nodeEnter.append('circle')
+                    .attr('class', 'node')
+                    .attr('r', 1e-6)
+                    .style("fill", d => d._children ? "#9333ea" : "#fff") // Purple if children hidden, White if leaf
+                    .style("stroke", d => "#9333ea"); // Purple stroke
+
+                // Add Text
+                nodeEnter.append('text')
+                    .attr("dy", ".35em")
+                    .attr("x", d => d.children || d._children ? -15 : 15)
+                    .attr("text-anchor", d => d.children || d._children ? "end" : "start")
+                    .text(d => d.data.name)
+                    .style("fill-opacity", 1e-6)
+                    .style("font-size", d => d.depth === 0 ? "16px" : "12px") // Root larger
+                    .style("font-weight", d => d.children || d._children ? "600" : "400")
+                    .style("fill", "#334155");
+
+                // UPDATE Transition
+                const nodeUpdate = node.merge(nodeEnter).transition().duration(duration)
+                    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+                nodeUpdate.select('circle')
+                    .attr('r', 6)
+                    .style("fill", d => d._children ? "#9333ea" : "#fff") // Purple if children hidden, White if leaf
+                    .attr('cursor', 'pointer');
+
+                nodeUpdate.select('text')
+                    .style("fill-opacity", 1);
+
+                // EXIT Transition
+                const nodeExit = node.exit().transition().duration(duration)
+                    .attr("transform", d => `translate(${source.y},${source.x})`)
+                    .remove();
+
+                nodeExit.select('circle').attr('r', 1e-6);
+                nodeExit.select('text').style('fill-opacity', 1e-6);
+
+                // --- LINKS ---
+                const link = g.selectAll('path.link')
+                    .data(links, d => d.target.id);
+
+                // Enter links
+                const linkEnter = link.enter().insert('path', "g")
+                    .attr("class", "link")
+                    .attr('d', d => {
+                        const o = {x: source.x0, y: source.y0};
+                        return diagonal(o, o);
+                    });
+
+                // Update links
+                const linkUpdate = link.merge(linkEnter).transition().duration(duration)
+                    .attr('d', d => diagonal(d.source, d.target));
+
+                // Exit links
+                link.exit().transition().duration(duration)
+                    .attr('d', d => {
+                        const o = {x: source.x, y: source.y};
+                        return diagonal(o, o);
+                    })
+                    .remove();
+
+                // Stash the old positions for transition
+                nodes.forEach(d => {
+                    d.x0 = d.x;
+                    d.y0 = d.y;
+                });
+                
+                // Auto-center on load
+                if(!window.centered) {
+                     window.centered = true;
+                     const t = d3.zoomIdentity.translate(100, height/2).scale(1);
+                     svg.call(d3.zoom().transform, t);
+                }
+            }
+
+            // Helper: Curved paths
+            function diagonal(s, d) {
+                return `M ${s.y} ${s.x}
+                        C ${(s.y + d.y) / 2} ${s.x},
+                          ${(s.y + d.y) / 2} ${d.x},
+                          ${d.y} ${d.x}`;
+            }
+
+            // Helper: Toggle children on click
+            function click(event, d) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(d);
+            }
+        });
+    </script>
+</body>
+</html>

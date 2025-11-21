@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katrien Han - Research Papers</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           SHARED STYLES (Matches Main Site)
+           ========================================= */
+        :root {
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --color-text-primary: #111827;
+            --color-text-secondary: #6b7280;
+            --color-bg: #ffffff;
+            --color-accent: #9333ea; /* Portfolio Purple */
+            --color-border: #e5e7eb;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 60px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Centered "Paper" Layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* =========================================
+           HEADER & NAVIGATION
+           ========================================= */
+        .nav-header {
+            margin-bottom: 40px;
+        }
+
+        /* Styled to match your "Works" / "CV" buttons */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            transition: all 0.2s ease;
+            background: #fff;
+            color: var(--color-text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            color: var(--color-text-primary);
+        }
+
+        .subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1rem;
+            margin-bottom: 50px;
+        }
+
+        /* =========================================
+           PAPER LIST STYLING
+           ========================================= */
+        .paper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .paper-item {
+            /* Clean card style with left accent */
+            border-left: 3px solid var(--color-border);
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .paper-item:hover {
+            border-left-color: var(--color-accent);
+        }
+
+        /* Typography for the citations */
+        .citation-text {
+            font-size: 0.95rem;
+            color: var(--color-text-primary);
+        }
+
+        .authors {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .paper-title {
+            display: block;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        .journal-info {
+            color: var(--color-text-secondary);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Optional badge for Year */
+        .year-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-style: normal;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="nav-header">
+            <a href="index.html" class="back-btn">
+                <span>&larr;</span> Back to Home
+            </a>
+        </div>
+
+        <header>
+            <h1>Research Publications</h1>
+            <p class="subtitle">Selected academic works and conference proceedings.</p>
+        </header>
+
+        <div class="paper-list">
+            
+            <div class="paper-item">
+                <div class="citation-text">
+                    <span class="authors">Li, J., Li, X., Wang, H., He, C., Han, P., & Dong, C.*</span>
+                    <span class="paper-title">Cryotherapy Combination Therapy for the Treatment of Ankle Injuries in Aerobics Athletes.</span>
+                    <span class="journal-info">Medicine, 104(29). <span class="year-badge">2025</span></span>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <div class="citation-text">
+                    <span class="authors">Li, J., Wang, H., He, C., Han, P., Ding, N., Yan, J., & Li, X.*</span>
+                    <span class="paper-title">Analysis of mental health factors for doping in competitive sports.</span>
+                    <span class="journal-info">Medicine, 104(29). <span class="year-badge">2025</span></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

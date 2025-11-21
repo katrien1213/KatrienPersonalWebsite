@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Katrien Han - About Me</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+        .content-section {
+            margin-bottom: 50px;
+            /* New CSS for responsiveness */
+            max-width: 100%; /* Ensures the container doesn't exceed screen width */
+            overflow-x: auto; /* Allows horizontal scrolling if the content is too wide */
+        }
+        /* Target the visualization containers directly */
+        #vis-timeline, #vis-skills, #mapinter {
+            width: 100%; /* Ensure the sections use all available width */
+            height: auto; /* Allow height to adjust based on content */
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-button">← Back to Main Page</a>
+
+    <h1>About Me & Data Story</h1>
+    <p>Here is a visual overview of my timeline, skills, and geographical connections.</p>
+
+    <div class="content-section">
+        <h2>Timeline Overview</h2>
+        <section id="vis-timeline"></section>
+    </div>
+    <script src="timeline.js"></script>
+
+    <div class="content-section">
+        <h2>Skills Visualization</h2>
+        <section id="vis-skills"></section>
+    </div>
+    <script src="skills.js"></script> 
+
+    <div class="content-section">
+        <h2>Interactive Map</h2>
+        <section id="mapinter"></section>
+    </div>
+    <script src="interactiveMap.js"></script> 
+    <script>
+        // Call the function with your container ID
+        createInteractiveMap("#mapinter"); 
+    </script>
+    
+</body>
+</html>

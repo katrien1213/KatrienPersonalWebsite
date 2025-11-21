@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative Calligraphy: Grievance - Katrien Han</title>
+    
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES (Consistent Layout) --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        blockquote {
+            border-left: 4px solid #9333ea;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #4b5563;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 40px 0;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Process Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .image-gallery figure {
+            margin: 0;
+        }
+        .image-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            height: 200px;
+            object-fit: cover;
+        }
+        .image-gallery figcaption {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* Code Block Style */
+        .tech-block {
+            background: #111827;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <header class="project-header">
+                <span class="project-category">Interactive Art • Machine Learning</span>
+                <h1>Generative Calligraphy: "Grievance"</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Timeline</strong>
+                        <span>2023.08</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tech Stack</strong>
+                        <span>p5.js, ml5.js, Midjourney, Gen-2</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>Creative Technologist</span>
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://drive.google.com/file/d/1RG44nDRfnZWLuFpjnlnI5hsV9XL_LF7_/view?usp=sharing" target="_blank" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        View Code
+                    </a>
+                    <a href="https://youtu.be/zOouxhLxqgA" target="_blank" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        Watch Prototype
+                    </a>
+                </div>
+            </header>
+
+            <article class="content-wrapper">
+                
+                <img src="project4_image.jpg" alt="Grievance Interactive Installation" class="hero-image">
+
+                <h2>Overview</h2>
+                <p>
+                    This interactive project draws inspiration from the calligraphy artwork <em>"Grievance in Prison (七恸歌)"</em> by the renowned Chinese general, <strong>Tingbi Xiong (1569-1625)</strong>. The project transforms traditional calligraphy into a dynamic experience, where audiences write verses on AI-designed postcards. These actions trigger a WebCam classification system, generating real-time ink paintings and visual effects that reflect the historical suffering and unfulfilled aspirations of the Ming Dynasty era.
+                </p>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/zOouxhLxqgA" title="Project Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <h2>1. Historical Context & Research</h2>
+                <p>
+                    Tingbi Xiong was a national hero of the Ming Dynasty who devoted his life to defending his homeland. Wrongly accused due to political conspiracy, he wrote "Grievance in Prison" before his execution to record his indignation. 
+                </p>
+                <blockquote>
+                    "In 2013, Xiong Tingbi's 'Grievance in Prison' was sold for $18.4 million USD, highlighting the enduring significance of his spirit and artistry."
+                </blockquote>
+                <p>
+                    We wish to express Xiong's unwavering integrity in code-generated calligraphy, believing that each stroke of the code symbolizes his tireless efforts for a cause greater than himself. The interactive nature allows the audience to empathize with the bloodshed and tragedy of war depicted in the artwork.
+                </p>
+
+                 <h2>2. Concept & AI Generation</h2>
+                <p>
+                    The project utilizes a hybrid workflow of physical interaction and AI generation. We utilized <strong>Midjourney</strong> to design the postcards that serve as the interface for the audience.
+                </p>
+                <h3>Generative Workflow</h3>
+                <p>
+                    After several trials, we refined our prompts to capture the aesthetic of the Ming Dynasty:
+                    <br><em>"Scroll, Wang Ximeng in East Asian Art, serene blues, elegant greens, and graceful yellow, harmonious balance depicting the Ming Dynasty style."</em>
+                </p>
+                
+    
+
+                <h2>3. Programming & Logic</h2>
+                <p>
+                    The technical core utilizes <strong>p5.js</strong> for visual generation and <strong>ml5.js (Teachable Machine)</strong> for gesture recognition. The logic consists of three parts:
+                </p>
+
+                <h3>A. Machine Learning Recognition</h3>
+                <p>
+                    We trained a model to recognize two distinct visual classes via Webcam:
+                </p>
+                <ul>
+                    <li><strong>Class 1 "Writing":</strong> Detects the handwriting side of the postcard.</li>
+                    <li><strong>Class 2 "Painting":</strong> Detects the illustration side of the postcard.</li>
+                </ul>
+
+                <h3>B. Dynamic Response</h3>
+                <div class="tech-block">
+                    if (label == "writing") {<br>
+                    &nbsp;&nbsp;call calligraphyFunction(); // Generates ink strokes<br>
+                    &nbsp;&nbsp;call landscapeFunction();<br>
+                    } else if (label == "painting") {<br>
+                    &nbsp;&nbsp;call bloodParticles(); // Generates dissolve effect<br>
+                    &nbsp;&nbsp;call landscapeFunction();<br>
+                    }
+                </div>
+
+                <h3>C. visual Effects</h3>
+                <p>
+                    For the code-generated calligraphy, we used <code>noise()</code> algorithms to create organic, ever-changing characters. The blood particle effects utilize nested <code>for-loops</code> to create a dissolving visual metaphor, representing the disintegration of the Ming Dynasty.
+                </p>
+
+                <h2>4. Challenges & Future Work</h2>
+                <p>
+                    <strong>Performance Optimization:</strong> The p5.js sketch repaints 800 times per frame for the particle effects, leading to network sluggishness on lower-end devices. Future iterations will optimize the nested loop structure or utilize shaders (GLSL) for better performance.
+                </p>
+                <p>
+                    <strong>Virtual Reality (VR):</strong> We aim to expand this into a VR experience, allowing viewers to step inside the world of calligraphy, looking around and interacting with the floating strokes to enhance immersion.
+                </p>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>

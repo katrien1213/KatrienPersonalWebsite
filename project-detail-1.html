@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye-Tracking PDF Reader - Katrien Han</title>
+    
+    <link href="style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        body {
+            padding-bottom: 100px;
+            background-color: #fff;
+        }
+
+        /* Navigation */
+        .top-nav {
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: #111;
+        }
+
+        /* Header Area */
+        .project-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 40px;
+        }
+        .project-category {
+            font-size: 0.85rem;
+            color: #9333ea; /* Purple accent */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* Meta Data Grid */
+        .project-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .meta-item strong {
+            color: #111;
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+        .meta-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .link-btn:hover {
+            border-color: #9333ea;
+            color: #9333ea;
+            background: #faf5ff;
+        }
+
+        /* Main Content Layout */
+        .content-wrapper {
+            max-width: 720px; /* Optimal reading width */
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #f3f4f6;
+        }
+
+        /* Typography for Article */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 24px;
+            line-height: 1.75;
+            color: #374151;
+            font-size: 1.05rem;
+        }
+
+        ul {
+            margin-bottom: 24px;
+            padding-left: 20px;
+            line-height: 1.7;
+            color: #374151;
+        }
+        li { margin-bottom: 10px; }
+
+        /* Tech/Code Highlights */
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #db2777; /* Pinkish accent for code */
+        }
+
+        /* Video Embed */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin: 40px 0;
+            background: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Interaction Table */
+        .interaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.9rem;
+        }
+        .interaction-table th {
+            text-align: left;
+            border-bottom: 2px solid #e5e7eb;
+            padding: 10px;
+            color: #111;
+        }
+        .interaction-table td {
+            border-bottom: 1px solid #f3f4f6;
+            padding: 10px;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+            
+            <nav class="top-nav">
+                <a href="index.html" class="back-link">
+                    <span>&larr;</span> Back to Portfolio
+                </a>
+            </nav>
+
+            <header class="project-header">
+                <span class="project-category">Human Computer Interaction • Accessibility</span>
+                <h1>Eye-Tracking PDF Reader: A Hands-Free Multimodal Interface</h1>
+                
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Timeline</strong>
+                        <span>2024.04</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tech Stack</strong>
+                        <span>WebGazer.js, PDF.js, Web Speech API</span>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <span>Lead Developer & Researcher</span>
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://katrien1213.github.io/" target="_blank" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                        Live Demo
+                    </a>
+                    <a href="https://github.com/katrien1213/HCI_readingInteraction" target="_blank" class="link-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        Source Code
+                    </a>
+                    <a href="https://youtu.be/RIiohiuuu50" target="_blank" class="link-btn">
+                        Watch Video
+                    </a>
+                </div>
+            </header>
+
+            <article class="content-wrapper">
+                
+                <img src="project1_image.jpg" alt="Eye Tracking System Interface" class="hero-image">
+
+                <p style="font-size: 1.2rem; color: #111; font-weight: 500; margin-bottom: 40px;">
+                    This project presents a novel Eye-Tracking PDF Reading System that employs a multimodal interaction model combining continuous gaze input for scrolling and discrete voice input for annotation. It addresses the physical strain of static postures and the cognitive friction of switching between reading and typing.
+                </p>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/RIiohiuuu50" title="Project Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <h2>1. The Problem: Interaction Challenge</h2>
+                <p>
+                    In contemporary digital learning, the Portable Document Format (PDF) is the standard. However, the traditional interaction paradigm rooted in the "Desktop Metaphor" imposes severe ergonomic constraints. 
+                </p>
+                <h3>Key Challenges:</h3>
+                <ul>
+                    <li><strong>Physical Friction:</strong> Continuous manual engagement leads to Repetitive Strain Injury (RSI) and chronic fatigue.</li>
+                    <li><strong>Contextual Rigidity:</strong> The need for a mouse/keyboard limits reading to a desk environment, preventing flexible postures.</li>
+                    <li><strong>Cognitive Load:</strong> Switching from visual processing (reading) to motor control (typing) breaks the "Flow State."</li>
+                </ul>
+
+                <h2>2. Analysis of Existing Solutions</h2>
+                <p>
+                    Current tools fall short in a hands-free context. <strong>Manual Systems</strong> (Adobe) require high physical bandwidth. <strong>Voice-Assisted Systems</strong> (Text-to-Speech) lack agency—users cannot pause simply by looking away. <strong>Experimental Gaze Prototypes</strong> often lack the robustness required for real-world document navigation.
+                </p>
+                <p>
+                    This project bridges the gap by combining <strong>Implicit Gaze Control</strong> (Navigation) with <strong>Explicit Voice Control</strong> (Annotation).
+                </p>
+
+                <h2>3. Design & Implementation</h2>
+                <p>The system was built using a Human-Centered Design (HCD) methodology across four stages.</p>
+                
+                <h3>Stage 1 & 2: Stabilization</h3>
+                <p>
+                    Raw webcam data is noisy. To solve this, I implemented a <strong>5-point forced-dwell calibration</strong> routine to retrain the WebGazer model. To counteract jitter, I applied a <strong>First-Order Exponential Moving Average (EMA)</strong> filter with a smoothing factor of <code>alpha=0.3</code>.
+                </p>
+
+                
+
+                <h3>Stage 3: Implicit Scroll Control</h3>
+                <p>
+                    Instead of direct 1:1 mapping, which causes motion sickness, I used a <strong>Threshold-Based Logic</strong>. The screen is divided into three zones based on normalized vertical gaze position (<code>gaze_Y</code>):
+                </p>
+                <ul>
+                    <li><strong>Top (0.0 - 0.2):</strong> Scroll Up</li>
+                    <li><strong>Center (0.2 - 0.8):</strong> Reading/Stop Zone (Calm technology principle)</li>
+                    <li><strong>Bottom (0.8 - 1.0):</strong> Scroll Down</li>
+                </ul>
+
+                
+
+                <h3>Stage 4: Voice Annotation</h3>
+                <p>
+                    To maintain a hands-free environment, text input was replaced with a Voice Note Layer using the <code>MediaRecorder API</code>. This aligns the annotation process with the user's internal thought process.
+                </p>
+
+                <h2>4. Interaction Model</h2>
+                <p>
+                    The system operates on a model of Multimodal Implicit Interaction.
+                </p>
+                <table class="interaction-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Modality</th>
+                            <th>Function</th>
+                            <th>Principle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Gaze Position</strong></td>
+                            <td>Visual (Continuous)</td>
+                            <td>Navigation / Scroll</td>
+                            <td>Implicit Control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voice</strong></td>
+                            <td>Auditory (Discrete)</td>
+                            <td>Annotation</td>
+                            <td>Explicit Control</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Visual Dot</strong></td>
+                            <td>Feedback</td>
+                            <td>Real-time Location</td>
+                            <td>Transparency</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>5. Evaluation & Conclusion</h2>
+                <p>
+                    <strong>Ergonomic Relief:</strong> By delegating scrolling to the gaze, the system eliminates static hand engagement, allowing users to read while reclining or standing.
+                </p>
+                <p>
+                    <strong>Situational Flexibility:</strong> The multimodal approach allows users to maintain visual attention on the document while capturing contextual information via speech.
+                </p>
+                <p>
+                    This project demonstrates that the future of interaction design lies not in adding complexity, but in removing physical constraints, allowing technology to seamlessly follow human intent.
+                </p>
+
+            </article>
+
+        </div>
+    </main>
+
+</body>
+</html>
